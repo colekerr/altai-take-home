@@ -3,8 +3,6 @@ import { Form } from "react-bootstrap";
 
 import SearchResults from "./subcomponents/SearchResults";
 
-import css from "./index.module.css";
-
 type CompanySearchProps = {
   searchCompanyResults: any; // FIXME: make type for this
   setSearchCompanyName: (companyName: string) => void;
