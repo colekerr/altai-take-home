@@ -1,15 +1,10 @@
 import React from 'react';
 
-import css from './App.module.css';
-import NetworkGraph from './components/NetworkGraph';
+import CompanySuppliersPage from './pages/CompanySuppliersPage';
 
 function App() {
   return (
-    <main className={css.layoutWrapper}>
-      <section className={css.contentWrapper}>
-        <NetworkGraph />
-      </section>
-    </main>
+    <CompanySuppliersPage />
   );
 }
 
