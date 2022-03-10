@@ -1,21 +1,26 @@
-import React from 'react';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 
-import CompanySearch from '../../components/CompanySearch';
-import NetworkGraph from '../../components/NetworkGraph';
+import CompanySearch from "../../components/CompanySearch";
+import NetworkGraph from "../../components/NetworkGraph";
 
-import css from './index.module.css';
+import css from "./index.module.css";
 
-function App() {
+function CompanySuppliersPage() {
   return (
-    <main className={css.layoutWrapper}>
-      <section className={css.leftPane}>
-        <CompanySearch />
-      </section>
-      <aside className={css.rightPane}>
-        <NetworkGraph />
-      </aside>
-    </main>
+    <Switch>
+      <Route path="/:companyID">
+        <main className={css.layoutWrapper}>
+          <section className={css.leftPane}>
+            <CompanySearch />
+          </section>
+          <aside className={css.rightPane}>
+            <NetworkGraph />
+          </aside>
+        </main>
+      </Route>
+    </Switch>
   );
 }
 
-export default App;
+export default CompanySuppliersPage;

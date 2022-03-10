@@ -1,9 +1,11 @@
 import React from "react";
 import { Graph, DefaultLink, DefaultNode } from "@visx/network";
 
-import { SVG_CENTER } from "./lib/constants";
+import { SVG_CENTER, SVG_DIMENSION } from "./lib/constants";
 import css from "./index.module.css";
 import buildPlacedGraphNodes from "./lib/buildPlacedGraphNodes";
+
+const SVG_VIEWBOX = `0 0 ${SVG_DIMENSION} ${SVG_DIMENSION}`;
 
 const nodes = [
   { id: "1", x: SVG_CENTER, y: SVG_CENTER, isCenter: true },
@@ -29,7 +31,7 @@ const dataSample = {
 
 const NetworkGraph = () => (
   <div className={css.wrapper}>
-    <svg viewBox="0 0 500 500">
+    <svg viewBox={SVG_VIEWBOX}>
       <Graph
         graph={dataSample}
         linkComponent={DefaultLink}
