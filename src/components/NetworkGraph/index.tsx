@@ -5,6 +5,10 @@ import { SVG_CENTER, SVG_DIMENSION } from "./lib/constants";
 import css from "./index.module.css";
 import buildPlacedGraphNodes from "./lib/buildPlacedGraphNodes";
 
+type NetworkGraphProps = {
+  
+};
+
 const SVG_VIEWBOX = `0 0 ${SVG_DIMENSION} ${SVG_DIMENSION}`;
 
 const nodes = [
@@ -29,7 +33,7 @@ const dataSample = {
   ],
 };
 
-const NetworkGraph = () => (
+const NetworkGraph: React.FC<NetworkGraphProps> = (props) => (
   <div className={css.wrapper}>
     <svg viewBox={SVG_VIEWBOX}>
       <Graph

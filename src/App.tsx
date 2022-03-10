@@ -12,7 +12,7 @@ import CompanySuppliersPage from './pages/CompanySuppliersPage';
 
 const COMPANY_SUPPLIERS_ROUTE = "/company-suppliers"
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Switch>
