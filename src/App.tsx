@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Redirect,
   BrowserRouter as Router,
@@ -6,11 +6,10 @@ import {
   Switch,
 } from "react-router-dom";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
-import CompanySuppliersPage from './pages/CompanySuppliersPage';
-
-const COMPANY_SUPPLIERS_ROUTE = "/company-suppliers"
+import CompanySuppliersPage from "./pages/CompanySuppliersPage";
+import { COMPANY_SUPPLIERS_ROUTE } from "./lib/router/constants";
 
 const App = () => {
   return (
@@ -25,6 +24,6 @@ const App = () => {
       </Switch>
     </Router>
   );
-}
+};
 
 export default App;

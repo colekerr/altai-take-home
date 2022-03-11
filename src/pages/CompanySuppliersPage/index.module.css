@@ -1,21 +1,37 @@
 .layoutWrapper {
   display: flex;
+  flex-direction: column-reverse;
   min-height: 100vh;
   width: 100%;
+  justify-content: flex-end;
+
 }
 
 .leftPane {
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: 100px 20px 0;
-  width: 40%;
+  padding: 20px 10% 0;
+  width: 100%;
 }
 
 .rightPane {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 60%;
+  width: 100%;
+}
+
+@media (min-width: 1080px) {
+  .layoutWrapper {
+    flex-direction: row;
+    justify-content: normal;
+  }
+  .leftPane {
+    width: 50%;
+    padding: 100px 20px 0;
+  }
+  .rightPane {
+    width: 50%;
+  }
 }

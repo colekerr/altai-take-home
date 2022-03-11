@@ -15,7 +15,7 @@ const CompanySearch: React.FC<CompanySearchProps> = (props) => {
 
   return (
     <>
-      <h2>Company Suppliers Page</h2>
+      <h1>Company Suppliers Page</h1>
       <Form>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Search Company by Name</Form.Label>
@@ -30,7 +30,7 @@ const CompanySearch: React.FC<CompanySearchProps> = (props) => {
           />
         </Form.Group>
       </Form>
-      <SearchResults />
+      <SearchResults searchResults={searchCompanyResults} />
     </>
   );
 };

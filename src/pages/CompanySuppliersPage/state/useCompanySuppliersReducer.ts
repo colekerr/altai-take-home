@@ -100,7 +100,7 @@ const _reducer = (
       return {
         ...curState,
         companySuppliersResults: {
-          ...curState.searchCompanyResults,
+          ...curState.companySuppliersResults,
           isLoading: true,
         },
       };

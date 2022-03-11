@@ -1,0 +1,11 @@
+.nodeWrapper {
+  cursor: pointer;
+  position: relative;
+}
+
+.nodeID {
+  position: absolute;
+  left: -50%;
+  color: #fff;
+  top: 30px;
+}
