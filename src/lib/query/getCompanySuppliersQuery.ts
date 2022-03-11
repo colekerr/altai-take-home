@@ -4,12 +4,11 @@ import { ATLAS_API_BASE_URL } from "./constants";
 
 type CompanySuppliersQueryResponse = {
   data: {
-    edges: {
-      company_canon_ids: string[];
-      edge_type: string; // TODO: make into string literal including "trading_partners"
-    }[]
-  }
-}
+    companies: {
+      altana_canon_id: string;
+    }[];
+  };
+};
 
 const getCompanySuppliersQuery = (id: string): AxiosPromise<unknown> => {
   return axios({
@@ -20,10 +19,14 @@ const getCompanySuppliersQuery = (id: string): AxiosPromise<unknown> => {
   });
 };
 
-export const parseCompanySuppliersQueryResponse = (response: CompanySuppliersQueryResponse): string[] => {
-  const tradingPartners = (response?.data?.edges || []).find((curEdges) => {
-    return curEdges.edge_type === "trading_partners"
-  })?.company_canon_ids || [];
+export const parseCompanySuppliersQueryResponse = (
+  response: CompanySuppliersQueryResponse
+): string[] => {
+  const tradingPartners = (response?.data?.companies || []).map(
+    (curCompany) => {
+      return curCompany.altana_canon_id;
+    }
+  );
 
   return tradingPartners;
 };
