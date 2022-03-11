@@ -42,7 +42,6 @@ const buildResultRows = (
 const SearchResults: React.FC<SearchResultsProps> = (props) => {
   const { searchResults } = props;
 
-  console.log("SearchResults searchResults", searchResults);
   const history = useHistory();
 
   const shouldShowNoResults =

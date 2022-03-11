@@ -31,7 +31,6 @@ const buildNodes = (centralNodeID: string, supplierIDs: string[]) => {
     { id: centralNodeID, x: SVG_CENTER, y: SVG_CENTER, isCenter: true },
     ...buildPlacedGraphNodes(
       supplierIDs.map((curSupplierID) => {
-        console.log('buildNodes supplierIDs.map curSupplierID', curSupplierID);
         return { id: curSupplierID };
       })
     ),
@@ -59,7 +58,6 @@ const buildEdges = (nodes: CompanyGraphNode[]): Edge[] => {
 const NetworkGraph: React.FC<NetworkGraphProps> = (props) => {
   const { supplierIDs } = props;
 
-  console.log("NetworkGraph supplierIDs", supplierIDs);
   const { companyID: centralNodeID } = useParams<{ companyID: string }>();
 
   const nodes = buildNodes(centralNodeID, supplierIDs);

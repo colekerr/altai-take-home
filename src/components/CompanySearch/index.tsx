@@ -11,8 +11,6 @@ type CompanySearchProps = {
 const CompanySearch: React.FC<CompanySearchProps> = (props) => {
   const { setSearchCompanyName, searchCompanyResults } = props;
 
-  console.log('searchCompanyResults', searchCompanyResults);
-
   return (
     <>
       <h1>Company Suppliers Page</h1>
@@ -23,7 +21,6 @@ const CompanySearch: React.FC<CompanySearchProps> = (props) => {
             type="text"
             onChange={(evt) => {
               // TODO: if API call is expensive in any way, change to onSubmit
-              console.log("CompanySearch onChange evt.target.value", evt.target.value);
               setSearchCompanyName(evt.target.value);
             }}
             placeholder="e.g. NORTHFACE"

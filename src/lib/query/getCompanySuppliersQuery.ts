@@ -25,7 +25,6 @@ export const parseCompanySuppliersQueryResponse = (response: CompanySuppliersQue
     return curEdges.edge_type === "trading_partners"
   })?.company_canon_ids || [];
 
-  console.log('parseCompanySuppliersQueryResponse tradingPartners', tradingPartners);
   return tradingPartners;
 };
 export default getCompanySuppliersQuery;

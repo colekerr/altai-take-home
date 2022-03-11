@@ -9,10 +9,6 @@ export type CompanySearchResult = {
 };
 
 const getCompanySearchQuery = (name: string): AxiosPromise<unknown> => {
-  console.log(
-    "getCompanySearchQuery axios url",
-    `${ATLAS_API_BASE_URL}/company/search/${name}`
-  );
   return axios({
     url: `${ATLAS_API_BASE_URL}/company/search/${name}`,
     headers: {

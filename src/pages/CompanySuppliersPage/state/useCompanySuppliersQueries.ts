@@ -13,7 +13,6 @@ const useCompanySuppliersQueries = (): [
   CompanySuppliersReducerState,
   Dispatch<CompanySuppliersReducerAction>
 ] => {
-  console.log("useCompanySuppliersQueries")
   const [state, dispatch] = useCompanySuppliersReducer();
 
   const { companyID } = useParams<{ companyID: string }>();
@@ -22,7 +21,6 @@ const useCompanySuppliersQueries = (): [
     if (!state.searchCompanyName) {
       return;
     }
-    console.log("useCompanySuppliersQueries useEffect[companyID] state.searchCompanyName", state.searchCompanyName);
 
     dispatch({
       type: "SEARCH_COMPANY_NAME_QUERY_PENDING",
@@ -52,7 +50,6 @@ const useCompanySuppliersQueries = (): [
   }, [state.searchCompanyName]);
 
   useEffect(() => {
-    console.log("useCompanySuppliersQueries useEffect[companyID] companyID", companyID);
     if (!companyID) {
       return;
     }
@@ -64,7 +61,6 @@ const useCompanySuppliersQueries = (): [
     getCompanySuppliersQuery(companyID)
       .then((data: any) => {
         const companyIDs = parseCompanySuppliersQueryResponse(data)
-        console.log("useCompanySuppliersQueries useEffect[companyID] getCompanySuppliersQuery.then companyIDs", companyIDs)
         dispatch({
           type: "COMPANY_SUPPLIERS_QUERY_SUCCESS",
           payload: {

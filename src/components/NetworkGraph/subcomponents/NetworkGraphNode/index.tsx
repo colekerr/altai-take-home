@@ -20,7 +20,6 @@ const NetworkGraphNode: React.FC<
     node: { id, isCenter },
   } = props;
 
-  console.log("NetworkGraphNode props", props);
   const history = useHistory();
 
   return isCenter ? (
@@ -30,7 +29,6 @@ const NetworkGraphNode: React.FC<
       <DefaultNode
         // style={{ pointerEvents: "bounding-box" as any }}
         onClick={() => {
-          console.log("onClick");
           history.push(`${COMPANY_SUPPLIERS_ROUTE}/${id}`);
         }}
       />
