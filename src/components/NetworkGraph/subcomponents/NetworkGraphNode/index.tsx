@@ -1,6 +1,6 @@
 import React from "react";
 import { DefaultNode } from "@visx/network";
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 
 import { COMPANY_SUPPLIERS_ROUTE } from "../../../../lib/router/constants";
 
@@ -20,6 +20,8 @@ const NetworkGraphNode: React.FC<
     node: { id, isCenter },
   } = props;
 
+  const match = useRouteMatch();
+
   const history = useHistory();
 
   return isCenter ? (
@@ -29,7 +31,7 @@ const NetworkGraphNode: React.FC<
       <DefaultNode
         // style={{ pointerEvents: "bounding-box" as any }}
         onClick={() => {
-          history.push(`${COMPANY_SUPPLIERS_ROUTE}/${id}`);
+          history.push(`${match.url}?edgeSuppliersID=${id}`);
         }}
       />
       <text fill="#fff" transform="translate(-150 35)" className={css.nodeID}>{id}</text>

@@ -6,25 +6,27 @@ import buildPlacedGraphNodes, {
   PlacedGraphNode,
 } from "./lib/buildPlacedGraphNodes";
 import css from "./index.module.css";
-import NetworkGraphNode from './subcomponents/NetworkGraphNode'
+import NetworkGraphNode from "./subcomponents/NetworkGraphNode";
 import { SVG_CENTER, SVG_DIMENSION } from "./lib/constants";
+import { Table } from "react-bootstrap";
+import useQuery from "../../lib/router/useQuery";
 
 type NetworkGraphProps = {
-  supplierIDs: string[];
+  tierZeroSupplierIDs: string[];
+  tierOneSupplierIDs: string[];
 };
 
 const SVG_VIEWBOX = `0 0 ${SVG_DIMENSION} ${SVG_DIMENSION}`;
 
-// const nodes = [
-//   { id: "1", x: SVG_CENTER, y: SVG_CENTER, isCenter: true },
-//   ...buildPlacedGraphNodes([
-//     { id: "2" },
-//     { id: "3" },
-//     { id: "4" },
-//     { id: "4" },
-//     { id: "5" },
-//   ]),
-// ];
+const buildTierOneSupplierRows = (results: string[]): JSX.Element[] => {
+  return results.map((curResult, curResultIdx) => {
+    return (
+      <tr key={curResultIdx}>
+        <td>{curResult}</td>
+      </tr>
+    );
+  });
+};
 
 const buildNodes = (centralNodeID: string, supplierIDs: string[]) => {
   return [
@@ -56,11 +58,14 @@ const buildEdges = (nodes: CompanyGraphNode[]): Edge[] => {
 };
 
 const NetworkGraph: React.FC<NetworkGraphProps> = (props) => {
-  const { supplierIDs } = props;
+  const { tierZeroSupplierIDs, tierOneSupplierIDs } = props;
 
   const { companyID: centralNodeID } = useParams<{ companyID: string }>();
 
-  const nodes = buildNodes(centralNodeID, supplierIDs);
+  const edgeSuppliersID = useQuery();
+  const showTierOneResults = !!(edgeSuppliersID && tierOneSupplierIDs.length);
+
+  const nodes = buildNodes(centralNodeID, tierZeroSupplierIDs);
 
   return (
     <div className={css.wrapper}>
@@ -74,6 +79,17 @@ const NetworkGraph: React.FC<NetworkGraphProps> = (props) => {
           nodeComponent={NetworkGraphNode as typeof DefaultNode}
         />
       </svg>
+
+      {showTierOneResults && (
+        <Table striped bordered hover variant="dark">
+          <thead>
+            <tr>
+              <th>ID</th>
+            </tr>
+          </thead>
+          <tbody>{buildTierOneSupplierRows(tierOneSupplierIDs)}</tbody>
+        </Table>
+      )}
     </div>
   );
 };

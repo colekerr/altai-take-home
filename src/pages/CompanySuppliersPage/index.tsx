@@ -9,7 +9,7 @@ import css from "./index.module.css";
 
 const CompanySuppliersContent = () => {
   const [state, dispatch] = useCompanySearchQuery();
-  const { companyID } = useParams<{ companyID: string }>();
+  const params = useParams<{ companyID: string }>();
 
   return (
     <main className={css.layoutWrapper}>
@@ -28,9 +28,12 @@ const CompanySuppliersContent = () => {
         />
       </section>
       {/* TODO: Replace NetworkGraph with paginated table of suppliers if results go above certain number */}
-      {companyID && (
+      {params.companyID && (
         <aside className={css.rightPane}>
-          <NetworkGraph supplierIDs={state.companySuppliersResults.data} />
+          <NetworkGraph
+            tierZeroSupplierIDs={state.tierZeroSuppliersResults.data}
+            tierOneSupplierIDs={state.tierOneSuppliersResults.data}
+          />
         </aside>
       )}
     </main>

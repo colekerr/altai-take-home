@@ -1,8 +1,13 @@
 import { Dispatch, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import getCompanySearchQuery, {parseCompanySearchQueryResponse} from "../../../lib/query/getCompanySearchQuery";
-import getCompanySuppliersQuery, { parseCompanySuppliersQueryResponse } from "../../../lib/query/getCompanySuppliersQuery";
+import getCompanySearchQuery, {
+  parseCompanySearchQueryResponse,
+} from "../../../lib/query/getCompanySearchQuery";
+import getCompanySuppliersQuery, {
+  parseCompanySuppliersQueryResponse,
+} from "../../../lib/query/getCompanySuppliersQuery";
+import useQuery from "../../../lib/router/useQuery";
 
 import useCompanySuppliersReducer, {
   CompanySuppliersReducerState,
@@ -16,7 +21,9 @@ const useCompanySuppliersQueries = (): [
   const [state, dispatch] = useCompanySuppliersReducer();
 
   const { companyID } = useParams<{ companyID: string }>();
+  const edgeSuppliersID = useQuery() as any;
 
+  console.log("useCompanySuppliersQueries", { edgeSuppliersID });
   useEffect(() => {
     if (!state.searchCompanyName) {
       return;
@@ -50,33 +57,40 @@ const useCompanySuppliersQueries = (): [
   }, [state.searchCompanyName]);
 
   useEffect(() => {
-    if (!companyID) {
+    if (!(companyID || edgeSuppliersID)) {
       return;
     }
+
+    const queryCompanyID = edgeSuppliersID || companyID;
+    const queryActionPrefix = `TIER_${
+      edgeSuppliersID ? "ONE" : "ZERO"
+    }_SUPPLIERS_QUERY`;
+
+    console.log("useCompanySuppliersQueries", { queryActionPrefix });
     dispatch({
-      type: "COMPANY_SUPPLIERS_QUERY_PENDING",
+      type: `${queryActionPrefix}_PENDING` as any,
     });
     // TODO: make promises trashable
     // TODO: fix type of data
-    getCompanySuppliersQuery(companyID)
+    getCompanySuppliersQuery(queryCompanyID)
       .then((data: any) => {
-        const companyIDs = parseCompanySuppliersQueryResponse(data)
+        const companyIDs = parseCompanySuppliersQueryResponse(data);
         dispatch({
-          type: "COMPANY_SUPPLIERS_QUERY_SUCCESS",
+          type: `${queryActionPrefix}_SUCCESS` as any,
           payload: {
-            data: companyIDs
+            data: companyIDs,
           },
         });
       })
       .catch((err: string) => {
         dispatch({
-          type: "COMPANY_SUPPLIERS_QUERY_FAILED",
+          type: `${queryActionPrefix}_FAILED` as any,
           payload: {
             error: err as string, //TODO: normalize runtime type of error
           },
         });
       });
-  }, [companyID])
+  }, [companyID, edgeSuppliersID]);
   return [state, dispatch];
 };
 

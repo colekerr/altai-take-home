@@ -23,31 +23,54 @@ export type CompanySuppliersReducerAction =
       >;
     }
   | {
-      type: "COMPANY_SUPPLIERS_QUERY_PENDING";
+      type: "TIER_ZERO_SUPPLIERS_QUERY_PENDING";
     }
   | {
-      type: "COMPANY_SUPPLIERS_QUERY_SUCCESS";
+      type: "TIER_ZERO_SUPPLIERS_QUERY_SUCCESS";
       payload: Pick<
-        CompanySuppliersReducerState["companySuppliersResults"],
+        CompanySuppliersReducerState["tierZeroSuppliersResults"],
         "data"
       >;
     }
   | {
-      type: "COMPANY_SUPPLIERS_QUERY_FAILED";
+      type: "TIER_ZERO_SUPPLIERS_QUERY_FAILED";
       payload: Pick<
-        CompanySuppliersReducerState["companySuppliersResults"],
+        CompanySuppliersReducerState["tierZeroSuppliersResults"],
+        "error"
+      >;
+    }
+  | {
+      type: "TIER_ONE_SUPPLIERS_QUERY_PENDING";
+    }
+  | {
+      type: "TIER_ONE_SUPPLIERS_QUERY_SUCCESS";
+      payload: Pick<
+        CompanySuppliersReducerState["tierOneSuppliersResults"],
+        "data"
+      >;
+    }
+  | {
+      type: "TIER_ONE_SUPPLIERS_QUERY_FAILED";
+      payload: Pick<
+        CompanySuppliersReducerState["tierOneSuppliersResults"],
         "error"
       >;
     };
 
 export type CompanySuppliersReducerState = {
   searchCompanyName: string;
+  searchCompanyID: string;
   searchCompanyResults: {
     isLoading: boolean;
     data: any[]; // FIXME: change type
     error?: string;
   };
-  companySuppliersResults: {
+  tierZeroSuppliersResults: {
+    isLoading: boolean;
+    data: any[]; // FIXME: change type
+    error?: string;
+  };
+  tierOneSuppliersResults: {
     isLoading: boolean;
     data: any[]; // FIXME: change type
     error?: string;
@@ -96,29 +119,62 @@ const _reducer = (
         },
       };
     }
-    case "COMPANY_SUPPLIERS_QUERY_PENDING": {
+    case "TIER_ZERO_SUPPLIERS_QUERY_PENDING": {
       return {
         ...curState,
-        companySuppliersResults: {
-          ...curState.companySuppliersResults,
+        tierZeroSuppliersResults: {
+          ...curState.tierZeroSuppliersResults,
           isLoading: true,
         },
       };
     }
-    case "COMPANY_SUPPLIERS_QUERY_SUCCESS": {
+    case "TIER_ZERO_SUPPLIERS_QUERY_SUCCESS": {
       return {
         ...curState,
-        companySuppliersResults: {
+        tierZeroSuppliersResults: {
+          error: undefined,
+          data: action.payload.data,
+          isLoading: false,
+        },
+        tierOneSuppliersResults: {
+          isLoading: false,
+          data: [],
+        },    
+      };
+    }
+    case "TIER_ZERO_SUPPLIERS_QUERY_FAILED": {
+      return {
+        ...curState,
+        tierZeroSuppliersResults: {
+          error: action.payload.error,
+          data: [],
+          isLoading: false,
+        },
+      };
+    }
+    case "TIER_ONE_SUPPLIERS_QUERY_PENDING": {
+      return {
+        ...curState,
+        tierOneSuppliersResults: {
+          ...curState.tierOneSuppliersResults,
+          isLoading: true,
+        },
+      };
+    }
+    case "TIER_ONE_SUPPLIERS_QUERY_SUCCESS": {
+      return {
+        ...curState,
+        tierOneSuppliersResults: {
           error: undefined,
           data: action.payload.data,
           isLoading: false,
         },
       };
     }
-    case "COMPANY_SUPPLIERS_QUERY_FAILED": {
+    case "TIER_ONE_SUPPLIERS_QUERY_FAILED": {
       return {
         ...curState,
-        companySuppliersResults: {
+        tierOneSuppliersResults: {
           error: action.payload.error,
           data: [],
           isLoading: false,
@@ -136,11 +192,16 @@ const _reducer = (
 export const DEFAULT_NETWORK_GRAPH_REDUCER_STATE: CompanySuppliersReducerState =
   {
     searchCompanyName: "",
+    searchCompanyID: "",
     searchCompanyResults: {
       isLoading: false,
       data: [],
     },
-    companySuppliersResults: {
+    tierZeroSuppliersResults: {
+      isLoading: false,
+      data: [],
+    },
+    tierOneSuppliersResults: {
       isLoading: false,
       data: [],
     },
